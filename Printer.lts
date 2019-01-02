@@ -1,6 +1,7 @@
-const MIN_SHEET_COUNT	=	0
+const MIN_SHEET_COUNT	=	1
 const MAX_SHEET_COUNT	=	3
-range SHEET_STACK		=	MIN_SHEET_COUNT .. MAX_SHEET_COUNT
+range DOC_COUNT			=	MIN_SHEET_COUNT .. MAX_SHEET_COUNT
+range SHEET_STACK		=	0 .. MAX_SHEET_COUNT
 
 set All_Users = {s1, s2, tcn}
 set PRINT_Actions = {acquire, print[DOC_COUNT],refill_printer, release, empty}

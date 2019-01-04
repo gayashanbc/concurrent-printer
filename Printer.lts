@@ -4,22 +4,22 @@ range DOC_COUNT			=	MIN_SHEET_COUNT .. MAX_SHEET_COUNT
 range SHEET_STACK		=	0 .. MAX_SHEET_COUNT
 
 set All_Users = {s1, s2, tcn}
-set PRINT_Actions = {acquire, print[DOC_COUNT],refill_printer, release, empty}
+set PRINT_Actions = {acquire, print[DOC_COUNT], release, empty}
 
 PRINTER(SHEETS_AVAILABLE	= MAX_SHEET_COUNT) = PRINTER_AVAILABLE[MAX_SHEET_COUNT],
-
 PRINTER_AVAILABLE[sheets_available: SHEET_STACK] = 
 (
-when(sheets_available < 1)empty -> acquire -> refill_printer -> release -> PRINTER_AVAILABLE[MAX_SHEET_COUNT] |
-when(sheets_available > 0)acquire -> print[DOC_COUNT] -> release -> PRINTER_AVAILABLE[sheets_available - 1]
+when(sheets_available > 0)acquire -> print[DOC_COUNT] -> release -> PRINTER_AVAILABLE[sheets_available - 1] |
+when(sheets_available == 0)empty -> release -> PRINTER_AVAILABLE[MAX_SHEET_COUNT]
 ).
 
 STUDENT(DOCS_TO_PRINT = 1) =  PRINT[DOCS_TO_PRINT],
 PRINT[doc_count: 0 .. DOCS_TO_PRINT] = (
-
-when (doc_count > 0)  acquire -> print[doc_count] -> release -> PRINT[doc_count - 1]
+when (doc_count > 0)  acquire -> print[DOCS_TO_PRINT + 1 - doc_count] -> release -> PRINT[doc_count - 1] |
+when (doc_count == 0) terminate -> END
 ) + PRINT_Actions.
 
-TECHNICIAN = (empty -> acquire -> refill_printer -> release -> TECHNICIAN) + PRINT_Actions.
+TECHNICIAN = (empty -> refill_printer -> release -> TECHNICIAN | terminate -> END) + PRINT_Actions.
 
-|| SHARED_PRINTER = (s1: STUDENT(2) || s2: STUDENT(3) || tcn : TECHNICIAN || All_Users :: PRINTER).
+|| SHARED_PRINTER = (s1: STUDENT(2) || s2: STUDENT(3) || tcn : TECHNICIAN || All_Users :: PRINTER) 
+/ {terminate/s1.terminate,terminate/s2.terminate,terminate/tcn.terminate}.

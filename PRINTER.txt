@@ -1,0 +1,10 @@
+Process:
+	PRINTER
+Alphabet:
+	{ acquire,
+	  empty,
+	  print[1],
+	  print[2],
+	  print[3],
+	  release
+	}

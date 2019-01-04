@@ -1,3 +1,7 @@
+/*
+ * @author Gayashan Bombuwala | 2015047 | W1582950
+ * https://gayashan.net | gayashan@gayashan.net
+ */
 package net.gayashan.cw.printer;
 
 import java.util.Optional;

@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * @author Gayashan Bombuwala | 2015047 | W1582950
+ * https://gayashan.net | gayashan@gayashan.net
  */
 package net.gayashan.cw.printer;
 

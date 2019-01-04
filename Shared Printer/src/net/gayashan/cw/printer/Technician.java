@@ -8,16 +8,11 @@ package net.gayashan.cw.printer;
 public class Technician extends Thread {
 
     protected LaserPrinter printer;
-    protected String name;
+    protected final String NAME;
 
-    // the default constructor for the technician class
     public Technician(String name, ThreadGroup group, LaserPrinter printer) {
         super(group, name);
         this.printer = printer;
-    }
-
-    @Override
-    public void run() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        NAME = name;
     }
 }

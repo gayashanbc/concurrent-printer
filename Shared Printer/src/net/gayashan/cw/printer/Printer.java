@@ -7,7 +7,6 @@ package net.gayashan.cw.printer;
 
 public interface Printer {
 
-    // print the "document"
-    public void printDocument(Document document);
+    void printDocument(Document document);
 
 }

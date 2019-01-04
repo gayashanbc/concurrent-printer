@@ -4,38 +4,33 @@
  */
 package net.gayashan.cw.printer;
 
-import java.util.Random;
+import java.util.stream.IntStream;
 
 
 public class TonerTechnician extends Technician {
 
-    public TonerTechnician(String name, ThreadGroup group, LaserPrinter printer) {
+    private String name;
 
+    public TonerTechnician(String name, ThreadGroup threadGroup, LaserPrinter printer) {
         // calling the parent constructor
-        super(name, group, printer);
+        super(name, threadGroup, printer);
+        this.name = name;
     }
 
     @Override
     public void run() {
-        for (int i = 0; i < 3; i++) {
+        IntStream.rangeClosed(1, 3).forEach(attemptId -> {
+            int randomSleepTime = RandomNumbersGenerator.getInstance().ints(1, 1000, 2000).findFirst().getAsInt();
             try {
-
-                // call the method that tries to replace the toner cartridge
-                this.printer.replaceTonerCartridge();
+                // call the method that tries to refill papers
+                this.printer.replaceTonerCartridge(attemptId, name);
 
                 // sleep the current thread for a random amount of time
-                sleep(RandomSleepTimeGenerator());
-            } catch (InterruptedException ex) {
-                System.out.println(ex.toString());
+                sleep(randomSleepTime);
+            } catch (InterruptedException exception) {
+                System.out.println(exception);
             }
-        }
-    }
-
-    public int RandomSleepTimeGenerator() {
-
-        Random ran = new Random();
-        int random = ran.nextInt(2000 - 1000 + 1) + 1000;
-        return random;
+        });
     }
 
 }

@@ -4,51 +4,35 @@
  */
 package net.gayashan.cw.printer;
 
-import java.util.Random;
+import java.util.stream.IntStream;
 
 
 public class Student extends Thread {
 
+    private String name;
     private LaserPrinter printer;
 
-    public Student(String threadName, ThreadGroup group, LaserPrinter printer) {
-        super(group, threadName);
+    public Student(String name, ThreadGroup threadGroup, LaserPrinter printer) {
+        super(threadGroup, name);
+        this.name = name;
         this.printer = printer;
     }
 
     @Override
     public void run() {
-        for (int i = 0; i < 5; i++) {
-            Document doc = new Document(this.getName(), "DOC " + i + i, RandomPageNumGenerator());
-            this.printer.printDocument(doc);
-            System.out.println(this);
+        IntStream.rangeClosed(1, 5).forEach(documentId -> {
+            int randomPageCount = RandomNumbersGenerator.getInstance().ints(1, 10, 30).findFirst().getAsInt();
+            int randomSleepTime = RandomNumbersGenerator.getInstance().ints(1, 1000, 2000).findFirst().getAsInt();
+            String documentName = "DOC-" + randomPageCount + "-" + randomSleepTime;
+            Document document = new Document(name, documentName, randomPageCount);
+            this.printer.printDocument(document);
 
             try {
-                sleep(RandomSleepTimeGenerator());
-            } catch (InterruptedException ex) {
-                System.out.println(ex.toString());
+                sleep(randomSleepTime);
+            } catch (InterruptedException exception) {
+                System.out.println(exception);
             }
-        }
-    }
-
-    @Override
-    public String toString() {
-        return "Student Name : " + this.getName() + "\t" + "Finish printing doc";
-    }
-
-    public int RandomPageNumGenerator() {
-
-        Random ran = new Random();
-        int random = ran.nextInt(25 - 10 + 1) + 10;
-        return random;
-
-    }
-
-    public int RandomSleepTimeGenerator() {
-
-        Random ran = new Random();
-        int random = ran.nextInt(2000 - 1000 + 1) + 1000;
-        return random;
+        });
     }
 
 }

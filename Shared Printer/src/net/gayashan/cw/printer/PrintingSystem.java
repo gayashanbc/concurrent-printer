@@ -1,25 +1,24 @@
 package net.gayashan.cw.printer;
 
-public class SharedPrinter {
+public class PrintingSystem {
 
     public static void main(String[] args) {
 
         // declaring and initializing the two thread groups technician and student
-
         ThreadGroup studentGroup = new ThreadGroup("Student Thread Group");
         ThreadGroup technicianGroup = new ThreadGroup("Technician Thread Group");
 
         // the laser printer object
-        LaserPrinter laserPrinter = new LaserPrinter("lp-N1-01", studentGroup);
+        LaserPrinter laserPrinter = new LaserPrinter("Cannon LP-X25M", studentGroup);
 
         // the student and technician threads
-        Student student1 = new Student("A", studentGroup, laserPrinter);
-        Student student2 = new Student("B", studentGroup, laserPrinter);
-        Student student3 = new Student("C", studentGroup, laserPrinter);
-        Student student4 = new Student("D", studentGroup, laserPrinter);
+        Student student1 = new Student("Simon", studentGroup, laserPrinter);
+        Student student2 = new Student("Tina", studentGroup, laserPrinter);
+        Student student3 = new Student("Cindy", studentGroup, laserPrinter);
+        Student student4 = new Student("Derk", studentGroup, laserPrinter);
 
-        Technician paperTechnician = new PaperTechnician("T1", technicianGroup, laserPrinter);
-        Technician tonerTechnician = new TonerTechnician("T2", technicianGroup, laserPrinter);
+        Technician paperTechnician = new PaperTechnician("Sasha", technicianGroup, laserPrinter);
+        Technician tonerTechnician = new TonerTechnician("Johnny", technicianGroup, laserPrinter);
 
         // starting all threads
         student1.start();
@@ -37,10 +36,9 @@ public class SharedPrinter {
             student4.join();
             paperTechnician.join();
             tonerTechnician.join();
-        } catch (InterruptedException ex) {
-            System.out.println(ex.toString());
+        } catch (InterruptedException exception) {
+            System.out.println(exception);
         }
-
-
     }
+
 }

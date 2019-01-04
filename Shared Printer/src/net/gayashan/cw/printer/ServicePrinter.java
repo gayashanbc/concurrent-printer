@@ -7,23 +7,15 @@ package net.gayashan.cw.printer;
 
 public interface ServicePrinter extends Printer {
 
-
-    // Printer constants 
-
-    int Full_Paper_Tray = 250;
-    int Full_Toner_Level = 500;
-
-    int Minimum_Toner_Level = 10;
-
-    int SheetsPerPack = 50;
-
-    int PagesPerTonerCartridge = 500;
-
+    // Printer constants
+    int MAX_SHEET_STACK = 250;
+    int MAX_TONER_LEVEL = 500;
+    int MIN_TONER_LEVEL = 10;
+    int SHEETS_PER_PACK = 50;
 
     // Technician methods
+    void refillPaper(int attempt, String technicianName);
 
-    void replaceTonerCartridge();
-
-    void refillPaper();
+    void replaceTonerCartridge(int attempt, String technicianName);
 
 }

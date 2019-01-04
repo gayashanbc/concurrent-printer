@@ -7,34 +7,34 @@ package net.gayashan.cw.printer;
 
 public class Document {
 
-    private final String userID;
-    private final String documentName;
-    private final int numberOfPages;
+    private final String STUDENT_NAME;
+    private final String NAME;
+    private final int NUMBER_OF_PAGES;
 
-    public Document(String UID, String name, int length) {
-        this.userID = UID;
-        this.documentName = name;
-        this.numberOfPages = length;
+    public Document(String studentName, String name, int numberOfPages) {
+        this.STUDENT_NAME = studentName;
+        this.NAME = name;
+        this.NUMBER_OF_PAGES = numberOfPages;
     }
 
-    public String getUserID() {
-        return userID;
+    public String getStudentName() {
+        return STUDENT_NAME;
     }
 
-    public String getDocumentName() {
-        return documentName;
+    public String getName() {
+        return NAME;
     }
 
     public int getNumberOfPages() {
-        return numberOfPages;
+        return NUMBER_OF_PAGES;
     }
 
     @Override
     public String toString() {
         return "Document[ "
-                + "UserID: " + userID + ", "
-                + "Name: " + documentName + ", "
-                + "Pages: " + numberOfPages
+                + "Student Name: " + STUDENT_NAME + ", "
+                + "Document Name: " + NAME + ", "
+                + "Number of Pages: " + NUMBER_OF_PAGES
                 + "]";
     }
 }

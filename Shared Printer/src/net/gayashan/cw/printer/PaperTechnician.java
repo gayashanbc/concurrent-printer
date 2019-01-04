@@ -20,7 +20,7 @@ public class PaperTechnician extends Technician {
     @Override
     public void run() {
         IntStream.rangeClosed(1, 3).forEach(attemptId -> {
-            int randomSleepTime = RandomNumbersGenerator.getInstance().ints(1, 1000, 2000).findFirst().getAsInt();
+            int randomSleepTime = RandomNumbersGenerator.getOneInt(1000, 2000);
             try {
                 // call the method that tries to refill papers
                 this.printer.refillPaper(attemptId, name);

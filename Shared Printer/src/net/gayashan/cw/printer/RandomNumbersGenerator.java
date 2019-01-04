@@ -19,4 +19,8 @@ public class RandomNumbersGenerator {
         }
         return instance.get();
     }
+
+    public static int getOneInt(int lowerLimit, int upperLimit) {
+        return getInstance().ints(lowerLimit, upperLimit).findFirst().getAsInt();
+    }
 }

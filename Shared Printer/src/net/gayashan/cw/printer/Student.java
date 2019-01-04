@@ -21,8 +21,8 @@ public class Student extends Thread {
     @Override
     public void run() {
         IntStream.rangeClosed(1, 5).forEach(documentId -> {
-            int randomPageCount = RandomNumbersGenerator.getInstance().ints(1, 10, 30).findFirst().getAsInt();
-            int randomSleepTime = RandomNumbersGenerator.getInstance().ints(1, 1000, 2000).findFirst().getAsInt();
+            int randomPageCount = RandomNumbersGenerator.getOneInt(10, 30);
+            int randomSleepTime = RandomNumbersGenerator.getOneInt(1000, 2000);
             String documentName = "DOC-" + randomPageCount + "-" + randomSleepTime;
             Document document = new Document(name, documentName, randomPageCount);
             this.printer.printDocument(document);
